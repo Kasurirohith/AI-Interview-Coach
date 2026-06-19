@@ -1,5 +1,7 @@
 import { useState } from "react";
 
+const API_URL = "https://ai-interview-coach-0ado.onrender.com";
+
 function Login() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -14,45 +16,31 @@ function Login() {
     try {
       setLoading(true);
 
-      const response = await fetch(
-        "http://127.0.0.1:8000/login",
-        {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify({
-            email,
-            password,
-          }),
-        }
-      );
+      const response = await fetch(`${API_URL}/login`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          email,
+          password,
+        }),
+      });
 
       const result = await response.json();
 
       if (result.success) {
-
-        localStorage.setItem(
-          "username",
-          result.name
-        );
-
-        localStorage.setItem(
-          "email",
-          result.email
-        );
+        localStorage.setItem("username", result.name);
+        localStorage.setItem("email", result.email);
 
         alert("Login Successful");
-
         window.location.href = "/dashboard";
-
       } else {
         alert(result.message);
       }
-
     } catch (error) {
       console.log(error);
-      alert("Backend Not Running");
+      alert("Backend Connection Failed");
     } finally {
       setLoading(false);
     }
@@ -60,9 +48,7 @@ function Login() {
 
   return (
     <div className="page-container">
-
       <div className="card">
-
         <h1>Welcome Back</h1>
 
         <input
@@ -70,9 +56,7 @@ function Login() {
           type="email"
           placeholder="Enter Email"
           value={email}
-          onChange={(e) =>
-            setEmail(e.target.value)
-          }
+          onChange={(e) => setEmail(e.target.value)}
         />
 
         <input
@@ -80,20 +64,17 @@ function Login() {
           type="password"
           placeholder="Enter Password"
           value={password}
-          onChange={(e) =>
-            setPassword(e.target.value)
-          }
+          onChange={(e) => setPassword(e.target.value)}
         />
 
         <button
           className="primary-btn"
           onClick={handleLogin}
+          disabled={loading}
         >
           {loading ? "Logging In..." : "Login"}
         </button>
-
       </div>
-
     </div>
   );
 }

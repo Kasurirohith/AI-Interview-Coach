@@ -16,7 +16,7 @@ function Signup() {
       setLoading(true);
 
       const response = await fetch(
-        "http://127.0.0.1:8000/signup",
+        "https://ai-interview-coach-0ado.onrender.com/signup",
         {
           method: "POST",
           headers: {
@@ -33,25 +33,15 @@ function Signup() {
       const result = await response.json();
 
       if (result.success) {
-
-        localStorage.setItem(
-          "username",
-          name
-        );
-
-        localStorage.setItem(
-          "email",
-          email
-        );
+        localStorage.setItem("username", name);
+        localStorage.setItem("email", email);
 
         alert("Account Created Successfully");
 
         window.location.href = "/dashboard";
-
       } else {
         alert(result.message);
       }
-
     } catch (error) {
       console.log(error);
       alert("Backend Not Running");
@@ -63,7 +53,6 @@ function Signup() {
   return (
     <div className="page-container">
       <div className="card">
-
         <h1>Create Account</h1>
 
         <input
@@ -71,9 +60,7 @@ function Signup() {
           type="text"
           placeholder="Full Name"
           value={name}
-          onChange={(e) =>
-            setName(e.target.value)
-          }
+          onChange={(e) => setName(e.target.value)}
         />
 
         <input
@@ -81,9 +68,7 @@ function Signup() {
           type="email"
           placeholder="Email"
           value={email}
-          onChange={(e) =>
-            setEmail(e.target.value)
-          }
+          onChange={(e) => setEmail(e.target.value)}
         />
 
         <input
@@ -91,18 +76,16 @@ function Signup() {
           type="password"
           placeholder="Password"
           value={password}
-          onChange={(e) =>
-            setPassword(e.target.value)
-          }
+          onChange={(e) => setPassword(e.target.value)}
         />
 
         <button
           className="primary-btn"
           onClick={handleSignup}
+          disabled={loading}
         >
           {loading ? "Creating..." : "Sign Up"}
         </button>
-
       </div>
     </div>
   );
