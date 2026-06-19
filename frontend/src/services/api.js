@@ -1,4 +1,4 @@
-const API_URL = "http://127.0.0.1:8000";
+const API_URL = "https://ai-interview-coach-0ado.onrender.com";
 
 /* Resume Upload */
 export const uploadResume = async (file) => {
