@@ -29,19 +29,12 @@ class CompanyInterview(BaseModel):
     company: str
 
 
-# ---------------- CORS ---------------- #
 
 # ---------------- CORS ---------------- #
 
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=[
-        "http://localhost:5173",
-        "http://localhost:5174",
-        "https://ai-interview-coach-one-mu.vercel.app",
-        "https://ai-interview-coach-git-main-rohithkasuri253-1157s-projects.vercel.app",
-        "https://ai-interview-coach-mma8qo6ci-rohithkasuri253-1157s-projects.vercel.app",
-    ],
+    allow_origin_regex="https://.*\.vercel\.app",
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
